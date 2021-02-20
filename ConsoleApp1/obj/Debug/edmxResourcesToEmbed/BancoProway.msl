@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BancoProwayModelStoreContainer" CdmEntityContainer="BancoProwayEntities">
+    <EntitySetMapping Name="assistidos">
+      <EntityTypeMapping TypeName="BancoProwayModel.assistidos">
+        <MappingFragment StoreEntitySet="assistidos">
+          <ScalarProperty Name="id_assistido" ColumnName="id_assistido" />
+          <ScalarProperty Name="dataehora" ColumnName="dataehora" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categorias">
+      <EntityTypeMapping TypeName="BancoProwayModel.categorias">
+        <MappingFragment StoreEntitySet="categorias">
+          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="episodios">
+      <EntityTypeMapping TypeName="BancoProwayModel.episodios">
+        <MappingFragment StoreEntitySet="episodios">
+          <ScalarProperty Name="id_episodio" ColumnName="id_episodio" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="sinopse" ColumnName="sinopse" />
+          <ScalarProperty Name="sequencial" ColumnName="sequencial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="filmes">
+      <EntityTypeMapping TypeName="BancoProwayModel.filmes">
+        <MappingFragment StoreEntitySet="filmes">
+          <ScalarProperty Name="id_filme" ColumnName="id_filme" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="ano" ColumnName="ano" />
+          <ScalarProperty Name="sinopse" ColumnName="sinopse" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="perfis">
+      <EntityTypeMapping TypeName="BancoProwayModel.perfis">
+        <MappingFragment StoreEntitySet="perfis">
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="series">
+      <EntityTypeMapping TypeName="BancoProwayModel.series">
+        <MappingFragment StoreEntitySet="series">
+          <ScalarProperty Name="id_serie" ColumnName="id_serie" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="ano" ColumnName="ano" />
+          <ScalarProperty Name="sinopse" ColumnName="sinopse" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="BancoProwayModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="temporadas">
+      <EntityTypeMapping TypeName="BancoProwayModel.temporadas">
+        <MappingFragment StoreEntitySet="temporadas">
+          <ScalarProperty Name="id_temporada" ColumnName="id_temporada" />
+          <ScalarProperty Name="sequencial" ColumnName="sequencial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuarios">
+      <EntityTypeMapping TypeName="BancoProwayModel.usuarios">
+        <MappingFragment StoreEntitySet="usuarios">
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="senha" ColumnName="senha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FK_assistidos_filmes" TypeName="BancoProwayModel.FK_assistidos_filmes" StoreEntitySet="assistidos">
+      <EndProperty Name="filmes">
+        <ScalarProperty Name="id_filme" ColumnName="filme" />
+      </EndProperty>
+      <EndProperty Name="assistidos">
+        <ScalarProperty Name="id_assistido" ColumnName="id_assistido" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="filme" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_assistidos_series" TypeName="BancoProwayModel.FK_assistidos_series" StoreEntitySet="assistidos">
+      <EndProperty Name="series">
+        <ScalarProperty Name="id_serie" ColumnName="serie" />
+      </EndProperty>
+      <EndProperty Name="assistidos">
+        <ScalarProperty Name="id_assistido" ColumnName="id_assistido" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="serie" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_assistidos_usuarios" TypeName="BancoProwayModel.FK_assistidos_usuarios" StoreEntitySet="assistidos">
+      <EndProperty Name="usuarios">
+        <ScalarProperty Name="id_usuario" ColumnName="usuario" />
+      </EndProperty>
+      <EndProperty Name="assistidos">
+        <ScalarProperty Name="id_assistido" ColumnName="id_assistido" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="usuario" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_filmes_categorias" TypeName="BancoProwayModel.FK_filmes_categorias" StoreEntitySet="filmes">
+      <EndProperty Name="categorias">
+        <ScalarProperty Name="id_categoria" ColumnName="categoria" />
+      </EndProperty>
+      <EndProperty Name="filmes">
+        <ScalarProperty Name="id_filme" ColumnName="id_filme" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="categoria" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_series_categorias" TypeName="BancoProwayModel.FK_series_categorias" StoreEntitySet="series">
+      <EndProperty Name="categorias">
+        <ScalarProperty Name="id_categoria" ColumnName="categoria" />
+      </EndProperty>
+      <EndProperty Name="series">
+        <ScalarProperty Name="id_serie" ColumnName="id_serie" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="categoria" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_episodios_temporadas" TypeName="BancoProwayModel.FK_episodios_temporadas" StoreEntitySet="episodios">
+      <EndProperty Name="temporadas">
+        <ScalarProperty Name="id_temporada" ColumnName="temporada" />
+      </EndProperty>
+      <EndProperty Name="episodios">
+        <ScalarProperty Name="id_episodio" ColumnName="id_episodio" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="temporada" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_usuarios_perfis" TypeName="BancoProwayModel.FK_usuarios_perfis" StoreEntitySet="usuarios">
+      <EndProperty Name="perfis">
+        <ScalarProperty Name="id_perfil" ColumnName="perfil" />
+      </EndProperty>
+      <EndProperty Name="usuarios">
+        <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="perfil" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_temporadas_series" TypeName="BancoProwayModel.FK_temporadas_series" StoreEntitySet="temporadas">
+      <EndProperty Name="series">
+        <ScalarProperty Name="id_serie" ColumnName="serie" />
+      </EndProperty>
+      <EndProperty Name="temporadas">
+        <ScalarProperty Name="id_temporada" ColumnName="id_temporada" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="serie" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
