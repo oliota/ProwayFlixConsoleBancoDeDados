@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="09f948b752e34346824bdfa98ef8657a" Name="Diagram1">
+        <EntityTypeShape EntityType="BancoProwayModel.assistidos" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BancoProwayModel.categorias" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BancoProwayModel.episodios" Width="1.5" PointX="7.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BancoProwayModel.filmes" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BancoProwayModel.perfis" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BancoProwayModel.series" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="BancoProwayModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BancoProwayModel.temporadas" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BancoProwayModel.usuarios" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="BancoProwayModel.FK_assistidos_filmes" ManuallyRouted="false" />
+        <AssociationConnector Association="BancoProwayModel.FK_assistidos_series" ManuallyRouted="false" />
+        <AssociationConnector Association="BancoProwayModel.FK_assistidos_usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="BancoProwayModel.FK_filmes_categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="BancoProwayModel.FK_series_categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="BancoProwayModel.FK_episodios_temporadas" ManuallyRouted="false" />
+        <AssociationConnector Association="BancoProwayModel.FK_usuarios_perfis" ManuallyRouted="false" />
+        <AssociationConnector Association="BancoProwayModel.FK_temporadas_series" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
