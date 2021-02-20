@@ -1,11 +1,5 @@
-﻿using ConsoleApp1.Business.Sistema.Serie;
-using ConsoleApp1.Model;
-using ConsoleApp1.Model.Repositorio;
+﻿using ConsoleApp1.Model.Repositorio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp1.Business.Sistema
 {
@@ -16,10 +10,11 @@ namespace ConsoleApp1.Business.Sistema
         {
             Sair = 0,
             Usuarios = 1,
-            Filmes = 2,
-            Series = 3,
-            Relatorios = 4,
-            Assistidos = 5
+            Categorias = 2,
+            Filmes = 3,
+            Series = 4,
+            Relatorios = 5,
+            Assistidos = 6
         }
 
 
@@ -39,19 +34,20 @@ namespace ConsoleApp1.Business.Sistema
                 case Opcoes.Usuarios:
                     new UsuariosMenu().ExibirMenu();
                     break;
+                case Opcoes.Categorias:
+                    new CategoriasMenu().ExibirMenu();
+                    break;
                 case Opcoes.Filmes:
-                    //new FilmesMenu().ExibirMenu();
                     break;
                 case Opcoes.Series:
-                    //new SeriesMenu().ExibirMenu();
+                    new SeriesMenu().ExibirMenu(); 
                     break;
                 case Opcoes.Assistidos:
-                    //new AssistidosMenu().ExibirMenu();
                     break;
                 case Opcoes.Relatorios:
                     Console.WriteLine("Menu de relatorios");
                     break;
-                default: 
+                default:
                     Utils.Pausar("Opção inválida");
                     break;
             }
@@ -75,7 +71,7 @@ namespace ConsoleApp1.Business.Sistema
                 ExecutarEscolha(Opcoes.Sair);
                 return;
             }
-            Console.WriteLine($"Bem vindo, {Repositorios.UsuarioLogado.nome}");
+            Console.WriteLine($"Bem vindo, {Repositorios.UsuarioLogado.Nome}");
             Console.WriteLine("Menu de principal, escolha uma opção:");
             foreach (var item in Enum.GetValues(typeof(Opcoes)))
                 Console.WriteLine($"\t {(int)item} : {item}");

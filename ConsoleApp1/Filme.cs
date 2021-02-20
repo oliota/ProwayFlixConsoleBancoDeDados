@@ -12,24 +12,22 @@ namespace ConsoleApp1
     using System;
     using System.Collections.Generic;
     
-    public partial class series
+    public partial class Filme
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public series()
+        public Filme()
         {
-            this.assistidos = new HashSet<assistidos>();
-            this.temporadas = new HashSet<temporadas>();
+            this.Assistido = new HashSet<Assistido>();
         }
     
-        public int id_serie { get; set; }
-        public string nome { get; set; }
-        public Nullable<int> ano { get; set; }
-        public string sinopse { get; set; }
+        public int IdFilme { get; set; }
+        public Nullable<int> CategoriaId { get; set; }
+        public string Nome { get; set; }
+        public Nullable<int> Ano { get; set; }
+        public string Sinopse { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<assistidos> assistidos { get; set; }
-        public virtual categorias categorias { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<temporadas> temporadas { get; set; }
+        public virtual ICollection<Assistido> Assistido { get; set; }
+        public virtual Categoria Categoria { get; set; }
     }
 }

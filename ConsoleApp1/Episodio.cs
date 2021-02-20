@@ -12,13 +12,14 @@ namespace ConsoleApp1
     using System;
     using System.Collections.Generic;
     
-    public partial class assistidos
+    public partial class Episodio
     {
-        public int id_assistido { get; set; }
-        public Nullable<System.DateTime> dataehora { get; set; }
+        public int IdEpisodio { get; set; }
+        public Nullable<int> TemporadaId { get; set; }
+        public Nullable<int> Sequencial { get; set; }
+        public string Nome { get; set; }
+        public string Sinopse { get; set; }
     
-        public virtual filmes filmes { get; set; }
-        public virtual series series { get; set; }
-        public virtual usuarios usuarios { get; set; }
+        public virtual Temporada Temporada { get; set; }
     }
 }

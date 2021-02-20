@@ -5,164 +5,113 @@ use BancoProway;
  
  -- owner padrao LAPTOP-TT37ONLI\algor
  --caso de erro alterar para sa
+/*
+drop table assistidos
+drop table usuarios
+drop table perfis
 
- --drop table perfis
- CREATE TABLE perfis (
-    id_perfil int IDENTITY(1,1)  ,
-    nome varchar(50),
+
+drop table episodios
+drop table temporadas
+drop table series
+drop table filmes
+drop table categorias
+*/
+
+
+--drop table Perfil 
+CREATE TABLE Perfil (
+    IdPerfil int IDENTITY(1,1) NOT NULL,
+    Nome varchar(50) NULL, 
+    PRIMARY KEY (IdPerfil) 
 );
 
 
   
- --drop table usuarios
- CREATE TABLE usuarios (
-    id_usuario int IDENTITY(1,1) ,
-    nome varchar(50),
-    email varchar(50),
-    login varchar(50),
-    senha varchar(50),
-    perfil int
+--drop table Usuario
+CREATE TABLE Usuario (
+    IdUsuario int IDENTITY(1,1) NOT NULL,
+    PerfilId int,
+    Nome varchar(50),
+    Email varchar(50),
+    Logon varchar(50),
+    Senha varchar(50),
+    PRIMARY KEY (IdUsuario),
+    FOREIGN KEY (PerfilId) REFERENCES Perfil(IdPerfil)
 );
- 
-
-
-
-
+  
 
 ---------------------------------------
 
-
-
- CREATE TABLE categorias (
-    id_categoria int IDENTITY(1,1),
-    nome varchar(50)
-);
-
-  
- CREATE TABLE filmes (
-    id_filme int IDENTITY(1,1),
-    nome varchar(50),
-    ano int,
-    sinopse varchar(1024), 
-    categoria int
-);
-
-
-
-
--------------------------------
  
- CREATE TABLE series (
-    id_serie int IDENTITY(1,1),
-    nome varchar(50), 
-    ano int,
-    sinopse varchar(1024), 
-    categoria int
+--drop table Categoria
+CREATE TABLE Categoria (
+    IdCategoria int IDENTITY(1,1) NOT NULL,
+    Nome varchar(50) NULL, 
+    PRIMARY KEY (Categoria) 
 );
 
-
-    
-	
-
-    CREATE TABLE temporadas (
-    id_temporada int IDENTITY(1,1), 
-    serie int,
-    sequencial int
+--drop table Filme
+CREATE TABLE Filme (
+    IdFilme int IDENTITY(1,1) NOT NULL,
+    CategoriaId int,
+    Nome varchar(50),
+    Ano int,
+    Sinopse varchar(50), 
+    PRIMARY KEY (IdFilme),
+    FOREIGN KEY (CategoriaId) REFERENCES Categoria(IdCategoria)
 );
-
- 
-
-	----------------------------
-	 
-	 CREATE TABLE episodios (
-    id_episodio int IDENTITY(1,1), 
-	 nome varchar(50),  
-    sinopse varchar(1024),
-    temporada int,
-    sequencial int
-);
-
-
-	 CREATE TABLE assistidos (
-    id_assistido int IDENTITY(1,1), 
-	filme int,  
-    serie int,
-    dataehora date
-);
-
-
-
-
-
-   --seleciona os episidos das series
-   select s.nome,s.ano,s.sinopse,
-   t.sequencial temporada,
-   e.sequencial episodio,
-   e.nome titulo,
-   e.sinopse
-   from episodios e
-   inner join temporadas t on t.id_temporada= e.temporada
-   inner join series s on s.id_serie=t.serie
-   order by s.nome,t.sequencial,e.sequencial
-
-
-
-
-
-
    
 
-INSERT perfis (nome) VALUES ('Administrador'); 
-INSERT perfis (nome) VALUES ('Usuário'); 
+--drop table Serie
+CREATE TABLE Serie (
+    IdSerie int IDENTITY(1,1) NOT NULL,
+    CategoriaId int,
+    Nome varchar(50),
+    Sinopse varchar(50), 
+    Ano int,
+    PRIMARY KEY (IdSerie),
+    FOREIGN KEY (CategoriaId) REFERENCES Categoria(IdCategoria)
+);
+   
+--drop table Temporada
+CREATE TABLE Temporada (
+    IdTemporada int IDENTITY(1,1) NOT NULL,
+    SerieId int, 
+    Sequencial int, 
+    PRIMARY KEY (IdTemporada),
+    FOREIGN KEY (SerieId) REFERENCES Serie(IdSerie)
+);
 
+--drop table Episodio 
+CREATE TABLE Episodio (
+    IdEpisodio int IDENTITY(1,1) NOT NULL,
+    TemporadaId int, 
+    Sequencial int,  
+	Nome varchar(50),
+    Sinopse varchar(50),
+    PRIMARY KEY (IdEpisodio),
+    FOREIGN KEY (TemporadaId) REFERENCES Temporada(IdTemporada)
+);
+ 
 
-select * from perfis;
+---------------------------------------
 
-------------------------------------------
+--drop table Assistido
+CREATE TABLE Assistido (
+    IdAssistido int IDENTITY(1,1) NOT NULL,
+    UsuarioId int, 
+    FilmeId int, 
+    SerieId int,  
+	Em date, 
+    PRIMARY KEY (IdAssistido),
+    FOREIGN KEY (UsuarioId) REFERENCES Usuario(IdUsuario),
+    FOREIGN KEY (FilmeId) REFERENCES Filme(IdFilme),
+    FOREIGN KEY (SerieId) REFERENCES Serie(IdSerie)
+);
 
-INSERT usuarios  
-   (nome, email, login ,senha,perfil)  
-VALUES  
-   (
-	   'Rubem Oliota',
-	   'rubemoliota@gmail.com',
-	   'admin',
-	   '123',
-	   ( select id_perfil from perfis where nome = 'Administrador')
-   ); 
-
-INSERT usuarios  
-   (nome, email, login ,senha,perfil)  
-VALUES  
-   (
-	   'Fulano',
-	   'fulano@gmail.com',
-	   'fulano',
-	   '123',
-	   ( select id_perfil from perfis where nome = 'Usuário')
-   ); 
-    
-select * from usuarios;
-
-select u.id_usuario,u.nome,u.email,u.login,u.senha,f.nome as perfil
-from usuarios u
-inner join perfis f on f.id_perfil= u.perfil;
-
-
-
-------------------------------------------
-
-
-
-
-INSERT categorias (nome) VALUES ('Ação'); 
-INSERT categorias (nome) VALUES ('Comédia'); 
-INSERT categorias (nome) VALUES ('Terror'); 
-INSERT categorias (nome) VALUES ('Drama'); 
-INSERT categorias (nome) VALUES ('Ficção'); 
-INSERT categorias (nome) VALUES ('Aventura'); 
-INSERT categorias (nome) VALUES ('Fantasia'); 
-
-select * from categorias;
+ 
+ 
+ 
 
 

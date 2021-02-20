@@ -1,41 +1,41 @@
 use BancoProway;
 
 
-INSERT perfis (nome) VALUES ('Administrador'); 
-INSERT perfis (nome) VALUES ('Usuário'); 
+INSERT Perfil (nome) VALUES ('Administrador'); 
+INSERT Perfil (nome) VALUES ('Usuário'); 
 
 
-select * from perfis;
+select * from Perfil;
 
 ------------------------------------------
 
-INSERT usuarios  
-   (nome, email, login ,senha,perfil)  
+INSERT Usuario  
+   (nome, email, Logon ,senha,perfilid)  
 VALUES  
    (
 	   'Rubem Oliota',
 	   'rubemoliota@gmail.com',
 	   'admin',
 	   '123',
-	   ( select id_perfil from perfis where nome = 'Administrador')
+	   ( select IdPerfil from Perfil where nome = 'Administrador')
    ); 
 
-INSERT usuarios  
-   (nome, email, login ,senha,perfil)  
+INSERT Usuario  
+   (nome, email, Logon ,senha,perfilid)  
 VALUES  
    (
 	   'Fulano',
 	   'fulano@gmail.com',
 	   'fulano',
 	   '123',
-	   ( select id_perfil from perfis where nome = 'Usuário')
+	   ( select IdPerfil from Perfil where nome = 'Usuário')
    ); 
     
-select * from usuarios;
+select * from Usuario;
 
-select u.id_usuario,u.nome,u.email,u.login,u.senha,f.nome as perfil
-from usuarios u
-inner join perfis f on f.id_perfil= u.perfil;
+select u.IdUsuario,u.nome,u.email,u.Logon,u.senha,f.nome as perfil
+from Usuario u
+inner join Perfil f on f.IdPerfil= u.perfilid;
 
 
 
@@ -44,16 +44,16 @@ inner join perfis f on f.id_perfil= u.perfil;
 
 
 
-INSERT categorias (nome) VALUES ('Ação'); 
-INSERT categorias (nome) VALUES ('Comédia'); 
-INSERT categorias (nome) VALUES ('Terror'); 
-INSERT categorias (nome) VALUES ('Drama'); 
-INSERT categorias (nome) VALUES ('Ficção'); 
-INSERT categorias (nome) VALUES ('Aventura'); 
-INSERT categorias (nome) VALUES ('Fantasia'); 
-INSERT categorias (nome) VALUES ('Anime'); 
+INSERT Categoria (nome) VALUES ('Ação'); 
+INSERT Categoria (nome) VALUES ('Comédia'); 
+INSERT Categoria (nome) VALUES ('Terror'); 
+INSERT Categoria (nome) VALUES ('Drama'); 
+INSERT Categoria (nome) VALUES ('Ficção'); 
+INSERT Categoria (nome) VALUES ('Aventura'); 
+INSERT Categoria (nome) VALUES ('Fantasia'); 
+INSERT Categoria (nome) VALUES ('Anime'); 
 
-select * from categorias;
+select * from Categoria;
 
 
 

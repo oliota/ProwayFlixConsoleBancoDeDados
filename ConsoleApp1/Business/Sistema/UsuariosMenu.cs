@@ -8,11 +8,11 @@ namespace ConsoleApp1.Business.Sistema
 {
     class UsuariosMenu : Menu, IMenu, ICadastro
     {
-        public usuarios Usuario { get; set; }
+        public Usuario Usuario { get; set; }
         public UsuarioREP Rep { get; set; } = new UsuarioREP();
         public bool Adicionar()
         {
-            Usuario = (usuarios)FormularioCompleto();
+            Usuario = (Usuario)FormularioCompleto();
             if (ValidarCompleto())
                 return Rep.Adicionar(Usuario);
             else
@@ -25,16 +25,16 @@ namespace ConsoleApp1.Business.Sistema
         }
         public bool Deletar()
         {
-            Usuario = (usuarios)FormularioSimples();
+            Usuario = (Usuario)FormularioSimples();
             if (ValidarSimples())
             {
-                var atual = (usuarios)Rep.Buscar(Usuario);
+                var atual = (Usuario)Rep.Buscar(Usuario);
                 if (atual == null)
                 {
                     Utils.Pausar("Usuario não localizado");
                     return false;
                 }
-                if (atual.email.Equals(Repositorios.UsuarioLogado.email))
+                if (atual.Email.Equals(Repositorios.UsuarioLogado.Email))
                 {
                     if (Utils.Perguntar("Ao deletar o usuario logado, será necessario retornar ao login, confirma Exclusão?"))
                     {
@@ -56,16 +56,19 @@ namespace ConsoleApp1.Business.Sistema
         }
         public bool Editar()
         {
+            Usuario = (Usuario)FormularioSimples();
+
+            var atual = (Usuario)Rep.Buscar(Usuario);
+            if (atual == null)
+            {
+                Utils.Pausar("Usuario não localizado");
+                return false;
+            }
 
             if (ValidarSimples())
             {
-                var atual = (usuarios)Rep.Buscar(Usuario);
-                if (atual == null)
-                {
-                    Utils.Pausar("Usuario não localizado");
-                    return false;
-                }
-                Usuario = (usuarios)FormularioCompleto();
+
+                Usuario = (Usuario)FormularioCompleto();
                 if (ValidarCompleto())
                     return Rep.Editar(Usuario, atual);
                 else
@@ -116,55 +119,58 @@ namespace ConsoleApp1.Business.Sistema
         }
         public object FormularioCompleto()
         {
-            Usuario = new usuarios();
+            Usuario = new Usuario();
             Console.Clear();
             Console.WriteLine("Informe o Nome");
-            Usuario.nome = Console.ReadLine();
+            Usuario.Nome = Console.ReadLine();
 
             Console.WriteLine("Informe o Email");
-            Usuario.email = Console.ReadLine();
+            Usuario.Email = Console.ReadLine();
 
             Console.WriteLine("Informe o Logon");
-            Usuario.login = Console.ReadLine();
+            Usuario.Logon = Console.ReadLine();
 
             Console.WriteLine("Informe a Senha");
-            Usuario.senha = Console.ReadLine();
+            Usuario.Senha = Console.ReadLine();
 
-            if(Repositorios.UsuarioLogado.perfis.nome == Repositorios.banco.perfis
-                .Where(x => x.nome.Equals("Administrador"))
-                .SingleOrDefault()
-                .nome)
+            if (Repositorios.UsuarioLogado.Perfil.Nome.Equals(
+                    Repositorios.banco.Perfil
+                    .Where(x => x.Nome.Equals("Administrador"))
+                    .SingleOrDefault()
+                    .Nome
+                    )
+                )
             {
-                Usuario.perfis=SelecionarPerfil();
-                if (Usuario.perfis == null)
-                    Usuario.perfis = PerfilPadrao();
+                Usuario.Perfil = SelecionarPerfil();
+                if (Usuario.Perfil == null)
+                    Usuario.Perfil = Repositorios.PerfilPadrao();
             }
             else
             {
 
-                Usuario.perfis = PerfilPadrao();
-             }
+                Usuario.Perfil = Repositorios.PerfilPadrao();
+            }
 
 
             return Usuario;
         }
 
-        private perfis SelecionarPerfil()
+        private Perfil SelecionarPerfil()
         {
             Console.WriteLine("=================================");
-            Rep.ListarPerfis(); 
+            Rep.ListarPerfis();
             Console.WriteLine("Selecione um perfil da lista");
             string escolha;
-            perfis perfil;
+            Perfil perfil;
             do
             {
                 escolha = Console.ReadLine();
-                perfil = Repositorios.banco.perfis
-                .Where(x => x.nome.Equals(escolha) || 
-                       x.id_perfil.ToString().Equals(escolha)
+                perfil = Repositorios.banco.Perfil
+                .Where(x => x.Nome.Equals(escolha) ||
+                       x.IdPerfil.ToString().Equals(escolha)
                        )
-                .SingleOrDefault(); 
-                if(perfil == null)
+                .SingleOrDefault();
+                if (perfil == null)
                     Console.WriteLine("Escolha um perfil válido!");
             } while (perfil == null);
 
@@ -172,18 +178,15 @@ namespace ConsoleApp1.Business.Sistema
             return perfil;
         }
 
-        private perfis PerfilPadrao()
-        {
-            return Repositorios.banco.perfis.Where(x => x.nome.Equals("Usuário")).SingleOrDefault();
-        }
+
 
         public object FormularioSimples()
         {
-            Usuario = new usuarios();
+            Usuario = new Usuario();
             Console.Clear();
 
             Console.WriteLine("Informe o Email atual do usuario");
-            Usuario.email = Console.ReadLine();
+            Usuario.Email = Console.ReadLine();
             return Usuario;
         }
         public void Listar()
@@ -193,13 +196,13 @@ namespace ConsoleApp1.Business.Sistema
         public bool ValidarCompleto()
         {
             var MensagemErro = new StringBuilder();
-            if (string.IsNullOrWhiteSpace(Usuario.nome))
+            if (string.IsNullOrWhiteSpace(Usuario.Nome))
                 MensagemErro.AppendLine($"Nome não pode ficar em branco");
-            if (string.IsNullOrWhiteSpace(Usuario.email))
+            if (string.IsNullOrWhiteSpace(Usuario.Email))
                 MensagemErro.AppendLine($"Email não pode ficar em branco");
-            if (string.IsNullOrWhiteSpace(Usuario.login))
+            if (string.IsNullOrWhiteSpace(Usuario.Logon))
                 MensagemErro.AppendLine($"Logon não pode ficar em branco");
-            if (string.IsNullOrWhiteSpace(Usuario.senha))
+            if (string.IsNullOrWhiteSpace(Usuario.Senha))
                 MensagemErro.AppendLine($"Senha não pode ficar em branco");
             if (!string.IsNullOrWhiteSpace(MensagemErro.ToString()))
             {
@@ -212,7 +215,7 @@ namespace ConsoleApp1.Business.Sistema
         public bool ValidarSimples()
         {
             var MensagemErro = new StringBuilder();
-            if (string.IsNullOrWhiteSpace(Usuario.email))
+            if (string.IsNullOrWhiteSpace(Usuario.Email))
                 MensagemErro.AppendLine($"Email não pode ficar em branco");
             if (!string.IsNullOrWhiteSpace(MensagemErro.ToString()))
             {

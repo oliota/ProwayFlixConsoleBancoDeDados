@@ -1,74 +1,72 @@
 ﻿using ConsoleApp1.Business;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace ConsoleApp1.Model.Repositorio
 {
     public class UsuarioREP : IRepositorio
-    { 
+    {
         public bool Adicionar(object item)
         {
 
-            var usuario = (usuarios)item;
+            var usuario = (Usuario)item;
             if (Buscar(item) != null)
             {
-                Utils.Pausar($"Já existe um usuario com o email {usuario.email}");
+                Utils.Pausar($"Já existe um usuario com o email {usuario.Email}");
                 return false;
             }
-            Repositorios.banco.usuarios.Add(usuario);
-            Salvar();
+            Repositorios.banco.Usuario.Add(usuario);
+            Repositorios.Salvar();
             Utils.Pausar($"Usuario cadastrado com sucesso!!!");
             return true;
         }
 
         public object Buscar(object item)
         {
-            var usuario = (usuarios)item; 
-            var select = Repositorios.banco.usuarios
-                .Where(x => x.email.Equals(usuario.email))
-                .SingleOrDefault(); 
+            var usuario = (Usuario)item;
+            var select = Repositorios.banco.Usuario
+                .Where(x => x.Email.Equals(usuario.Email))
+                .SingleOrDefault();
             return select;
         }
 
-        public void Salvar()
-        {
-            Repositorios.banco.SaveChanges();
-        }
+
 
         public object Buscar(string logon, string senha)
-        { 
-            var select = Repositorios.banco.usuarios
-                 .Where(x => x.login.Equals(logon))
-                .Where(x => x.senha.Equals(senha))
-                .SingleOrDefault(); 
+        {
+            var select = Repositorios.banco.Usuario
+                 .Where(x => x.Logon.Equals(logon))
+                .Where(x => x.Senha.Equals(senha))
+                .SingleOrDefault();
             return select;
         }
 
         public bool Deletar(object item)
         {
-            var atual = (usuarios)Buscar(item);
-            Repositorios.banco.usuarios.Remove(atual);
-            Salvar(); 
+            var atual = (Usuario)Buscar(item);
+            Repositorios.banco.Usuario.Remove(atual);
+            Repositorios.Salvar();
             return true;
         }
 
         public bool Editar(object item, object original)
         {
-            var usuario = (usuarios)item;
-            var atual = (usuarios)original;
+            var editado = (Usuario)item;
+            var referencia = (Usuario)original;
+            referencia.Nome = editado.Nome;
+            referencia.Email = editado.Email;
+            referencia.Logon = editado.Logon;
+            referencia.Senha = editado.Senha;
+            referencia.Perfil = editado.Perfil;
 
-            int posicao = Repositorios.banco.usuarios.ToList().IndexOf(atual);
-            Repositorios.banco.usuarios.ToList()[posicao] = usuario;
-            Salvar();
+            Repositorios.Salvar();
             Utils.Pausar($"Usuario atualizado com sucesso!!!");
             return true;
 
         }
         public void Listar()
         {
-            if (!Repositorios.banco.usuarios.Any())
+            if (!Repositorios.banco.Usuario.Any())
             {
                 Utils.Pausar("Não há itens para exibir");
                 return;
@@ -76,9 +74,9 @@ namespace ConsoleApp1.Model.Repositorio
             }
             Console.WriteLine($"{"Nome",-30}{"Email",-30}{"Logon",-20}{"Senha",-10}{"Perfil",-20}");
 
-            foreach (var item in Repositorios.banco.usuarios)
+            foreach (var item in Repositorios.banco.Usuario)
             {
-                Console.WriteLine($"{item.nome,-30}{item.email,-30}{item.login,-20}{item.senha,-10}{item.perfis.nome,-20}");
+                Console.WriteLine($"{item.Nome,-30}{item.Email,-30}{item.Logon,-20}{item.Senha,-10}{item.Perfil.Nome,-20}");
             }
             Utils.Pausar();
         }
@@ -86,13 +84,13 @@ namespace ConsoleApp1.Model.Repositorio
 
         public void ListarPerfis()
         {
-             
+
             Console.WriteLine($"{"Id",-5}{"Nome",-30}");
-            
-            foreach (var item in Repositorios.banco.perfis.ToList())
+
+            foreach (var item in Repositorios.banco.Perfil.ToList())
             {
-                Console.WriteLine($"{item.id_perfil,-5}{item.nome,-30}");
-            } 
+                Console.WriteLine($"{item.IdPerfil,-5}{item.Nome,-30}");
+            }
         }
     }
 }

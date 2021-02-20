@@ -1,5 +1,5 @@
 ﻿using ConsoleApp1.Business;
-using System;
+using ConsoleApp1.Model.Repositorio;
 
 namespace ConsoleApp1
 {
@@ -7,7 +7,11 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            new Seguranca().ExibirMenu();
+            if (Repositorios.BancoInicializado())
+            {
+                new Seguranca().ExibirMenu();
+            }
+
             Utils.Pausar();
         }
     }
