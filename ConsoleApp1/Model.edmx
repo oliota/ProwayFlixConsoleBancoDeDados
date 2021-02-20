@@ -1,0 +1,594 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BancoProwayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Assistido">
+          <Key>
+            <PropertyRef Name="IdAssistido" />
+          </Key>
+          <Property Name="IdAssistido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="FilmeId" Type="int" />
+          <Property Name="SerieId" Type="int" />
+          <Property Name="Em" Type="date" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Episodio">
+          <Key>
+            <PropertyRef Name="IdEpisodio" />
+          </Key>
+          <Property Name="IdEpisodio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemporadaId" Type="int" />
+          <Property Name="Sequencial" Type="int" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Sinopse" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Filme">
+          <Key>
+            <PropertyRef Name="IdFilme" />
+          </Key>
+          <Property Name="IdFilme" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoriaId" Type="int" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Ano" Type="int" />
+          <Property Name="Sinopse" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Serie">
+          <Key>
+            <PropertyRef Name="IdSerie" />
+          </Key>
+          <Property Name="IdSerie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoriaId" Type="int" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Sinopse" Type="varchar" MaxLength="50" />
+          <Property Name="Ano" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Temporada">
+          <Key>
+            <PropertyRef Name="IdTemporada" />
+          </Key>
+          <Property Name="IdTemporada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerieId" Type="int" />
+          <Property Name="Sequencial" Type="int" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PerfilId" Type="int" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Logon" Type="varchar" MaxLength="50" />
+          <Property Name="Senha" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Assistido__Filme__29221CFB">
+          <End Role="Filme" Type="Self.Filme" Multiplicity="0..1" />
+          <End Role="Assistido" Type="Self.Assistido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filme">
+              <PropertyRef Name="IdFilme" />
+            </Principal>
+            <Dependent Role="Assistido">
+              <PropertyRef Name="FilmeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assistido__Serie__2A164134">
+          <End Role="Serie" Type="Self.Serie" Multiplicity="0..1" />
+          <End Role="Assistido" Type="Self.Assistido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="IdSerie" />
+            </Principal>
+            <Dependent Role="Assistido">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assistido__Usuar__282DF8C2">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Assistido" Type="Self.Assistido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Assistido">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Episodio__Tempor__25518C17">
+          <End Role="Temporada" Type="Self.Temporada" Multiplicity="0..1" />
+          <End Role="Episodio" Type="Self.Episodio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temporada">
+              <PropertyRef Name="IdTemporada" />
+            </Principal>
+            <Dependent Role="Episodio">
+              <PropertyRef Name="TemporadaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Filme__Categoria__1CBC4616">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Filme" Type="Self.Filme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Filme">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Serie__Categoria__1F98B2C1">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Serie" Type="Self.Serie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Serie">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Temporada__Serie__22751F6C">
+          <End Role="Serie" Type="Self.Serie" Multiplicity="0..1" />
+          <End Role="Temporada" Type="Self.Temporada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="IdSerie" />
+            </Principal>
+            <Dependent Role="Temporada">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__PerfilI__17F790F9">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="PerfilId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BancoProwayModelStoreContainer">
+          <EntitySet Name="Assistido" EntityType="Self.Assistido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Episodio" EntityType="Self.Episodio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Filme" EntityType="Self.Filme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Serie" EntityType="Self.Serie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temporada" EntityType="Self.Temporada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Assistido__Filme__29221CFB" Association="Self.FK__Assistido__Filme__29221CFB">
+            <End Role="Filme" EntitySet="Filme" />
+            <End Role="Assistido" EntitySet="Assistido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assistido__Serie__2A164134" Association="Self.FK__Assistido__Serie__2A164134">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="Assistido" EntitySet="Assistido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assistido__Usuar__282DF8C2" Association="Self.FK__Assistido__Usuar__282DF8C2">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Assistido" EntitySet="Assistido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Episodio__Tempor__25518C17" Association="Self.FK__Episodio__Tempor__25518C17">
+            <End Role="Temporada" EntitySet="Temporada" />
+            <End Role="Episodio" EntitySet="Episodio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Filme__Categoria__1CBC4616" Association="Self.FK__Filme__Categoria__1CBC4616">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Filme" EntitySet="Filme" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Serie__Categoria__1F98B2C1" Association="Self.FK__Serie__Categoria__1F98B2C1">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Serie" EntitySet="Serie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Temporada__Serie__22751F6C" Association="Self.FK__Temporada__Serie__22751F6C">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="Temporada" EntitySet="Temporada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__PerfilI__17F790F9" Association="Self.FK__Usuario__PerfilI__17F790F9">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BancoProwayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Assistido">
+          <Key>
+            <PropertyRef Name="IdAssistido" />
+          </Key>
+          <Property Name="IdAssistido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="FilmeId" Type="Int32" />
+          <Property Name="SerieId" Type="Int32" />
+          <Property Name="Em" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Filme" Relationship="Self.FK__Assistido__Filme__29221CFB" FromRole="Assistido" ToRole="Filme" />
+          <NavigationProperty Name="Serie" Relationship="Self.FK__Assistido__Serie__2A164134" FromRole="Assistido" ToRole="Serie" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Assistido__Usuar__282DF8C2" FromRole="Assistido" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Filme" Relationship="Self.FK__Filme__Categoria__1CBC4616" FromRole="Categoria" ToRole="Filme" />
+          <NavigationProperty Name="Serie" Relationship="Self.FK__Serie__Categoria__1F98B2C1" FromRole="Categoria" ToRole="Serie" />
+        </EntityType>
+        <EntityType Name="Episodio">
+          <Key>
+            <PropertyRef Name="IdEpisodio" />
+          </Key>
+          <Property Name="IdEpisodio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemporadaId" Type="Int32" />
+          <Property Name="Sequencial" Type="Int32" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sinopse" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Temporada" Relationship="Self.FK__Episodio__Tempor__25518C17" FromRole="Episodio" ToRole="Temporada" />
+        </EntityType>
+        <EntityType Name="Filme">
+          <Key>
+            <PropertyRef Name="IdFilme" />
+          </Key>
+          <Property Name="IdFilme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoriaId" Type="Int32" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ano" Type="Int32" />
+          <Property Name="Sinopse" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Assistido" Relationship="Self.FK__Assistido__Filme__29221CFB" FromRole="Filme" ToRole="Assistido" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK__Filme__Categoria__1CBC4616" FromRole="Filme" ToRole="Categoria" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__PerfilI__17F790F9" FromRole="Perfil" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Serie">
+          <Key>
+            <PropertyRef Name="IdSerie" />
+          </Key>
+          <Property Name="IdSerie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoriaId" Type="Int32" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sinopse" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ano" Type="Int32" />
+          <NavigationProperty Name="Assistido" Relationship="Self.FK__Assistido__Serie__2A164134" FromRole="Serie" ToRole="Assistido" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK__Serie__Categoria__1F98B2C1" FromRole="Serie" ToRole="Categoria" />
+          <NavigationProperty Name="Temporada" Relationship="Self.FK__Temporada__Serie__22751F6C" FromRole="Serie" ToRole="Temporada" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Temporada">
+          <Key>
+            <PropertyRef Name="IdTemporada" />
+          </Key>
+          <Property Name="IdTemporada" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerieId" Type="Int32" />
+          <Property Name="Sequencial" Type="Int32" />
+          <NavigationProperty Name="Episodio" Relationship="Self.FK__Episodio__Tempor__25518C17" FromRole="Temporada" ToRole="Episodio" />
+          <NavigationProperty Name="Serie" Relationship="Self.FK__Temporada__Serie__22751F6C" FromRole="Temporada" ToRole="Serie" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PerfilId" Type="Int32" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Logon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Senha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Assistido" Relationship="Self.FK__Assistido__Usuar__282DF8C2" FromRole="Usuario" ToRole="Assistido" />
+          <NavigationProperty Name="Perfil" Relationship="Self.FK__Usuario__PerfilI__17F790F9" FromRole="Usuario" ToRole="Perfil" />
+        </EntityType>
+        <Association Name="FK__Assistido__Filme__29221CFB">
+          <End Role="Filme" Type="Self.Filme" Multiplicity="0..1" />
+          <End Role="Assistido" Type="Self.Assistido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filme">
+              <PropertyRef Name="IdFilme" />
+            </Principal>
+            <Dependent Role="Assistido">
+              <PropertyRef Name="FilmeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assistido__Serie__2A164134">
+          <End Role="Serie" Type="Self.Serie" Multiplicity="0..1" />
+          <End Role="Assistido" Type="Self.Assistido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="IdSerie" />
+            </Principal>
+            <Dependent Role="Assistido">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assistido__Usuar__282DF8C2">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Assistido" Type="Self.Assistido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Assistido">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Filme__Categoria__1CBC4616">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Filme" Type="Self.Filme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Filme">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Serie__Categoria__1F98B2C1">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Serie" Type="Self.Serie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Serie">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Episodio__Tempor__25518C17">
+          <End Role="Temporada" Type="Self.Temporada" Multiplicity="0..1" />
+          <End Role="Episodio" Type="Self.Episodio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temporada">
+              <PropertyRef Name="IdTemporada" />
+            </Principal>
+            <Dependent Role="Episodio">
+              <PropertyRef Name="TemporadaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__PerfilI__17F790F9">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="PerfilId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Temporada__Serie__22751F6C">
+          <End Role="Serie" Type="Self.Serie" Multiplicity="0..1" />
+          <End Role="Temporada" Type="Self.Temporada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="IdSerie" />
+            </Principal>
+            <Dependent Role="Temporada">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Assistido" EntityType="Self.Assistido" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+          <EntitySet Name="Episodio" EntityType="Self.Episodio" />
+          <EntitySet Name="Filme" EntityType="Self.Filme" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" />
+          <EntitySet Name="Serie" EntityType="Self.Serie" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Temporada" EntityType="Self.Temporada" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Assistido__Filme__29221CFB" Association="Self.FK__Assistido__Filme__29221CFB">
+            <End Role="Filme" EntitySet="Filme" />
+            <End Role="Assistido" EntitySet="Assistido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assistido__Serie__2A164134" Association="Self.FK__Assistido__Serie__2A164134">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="Assistido" EntitySet="Assistido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assistido__Usuar__282DF8C2" Association="Self.FK__Assistido__Usuar__282DF8C2">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Assistido" EntitySet="Assistido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Filme__Categoria__1CBC4616" Association="Self.FK__Filme__Categoria__1CBC4616">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Filme" EntitySet="Filme" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Serie__Categoria__1F98B2C1" Association="Self.FK__Serie__Categoria__1F98B2C1">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Serie" EntitySet="Serie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Episodio__Tempor__25518C17" Association="Self.FK__Episodio__Tempor__25518C17">
+            <End Role="Temporada" EntitySet="Temporada" />
+            <End Role="Episodio" EntitySet="Episodio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__PerfilI__17F790F9" Association="Self.FK__Usuario__PerfilI__17F790F9">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Temporada__Serie__22751F6C" Association="Self.FK__Temporada__Serie__22751F6C">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="Temporada" EntitySet="Temporada" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BancoProwayModelStoreContainer" CdmEntityContainer="ModelEntities">
+          <EntitySetMapping Name="Assistido">
+            <EntityTypeMapping TypeName="BancoProwayModel.Assistido">
+              <MappingFragment StoreEntitySet="Assistido">
+                <ScalarProperty Name="IdAssistido" ColumnName="IdAssistido" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="FilmeId" ColumnName="FilmeId" />
+                <ScalarProperty Name="SerieId" ColumnName="SerieId" />
+                <ScalarProperty Name="Em" ColumnName="Em" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="BancoProwayModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Episodio">
+            <EntityTypeMapping TypeName="BancoProwayModel.Episodio">
+              <MappingFragment StoreEntitySet="Episodio">
+                <ScalarProperty Name="IdEpisodio" ColumnName="IdEpisodio" />
+                <ScalarProperty Name="TemporadaId" ColumnName="TemporadaId" />
+                <ScalarProperty Name="Sequencial" ColumnName="Sequencial" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Sinopse" ColumnName="Sinopse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filme">
+            <EntityTypeMapping TypeName="BancoProwayModel.Filme">
+              <MappingFragment StoreEntitySet="Filme">
+                <ScalarProperty Name="IdFilme" ColumnName="IdFilme" />
+                <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Ano" ColumnName="Ano" />
+                <ScalarProperty Name="Sinopse" ColumnName="Sinopse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perfil">
+            <EntityTypeMapping TypeName="BancoProwayModel.Perfil">
+              <MappingFragment StoreEntitySet="Perfil">
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Serie">
+            <EntityTypeMapping TypeName="BancoProwayModel.Serie">
+              <MappingFragment StoreEntitySet="Serie">
+                <ScalarProperty Name="IdSerie" ColumnName="IdSerie" />
+                <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Sinopse" ColumnName="Sinopse" />
+                <ScalarProperty Name="Ano" ColumnName="Ano" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BancoProwayModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temporada">
+            <EntityTypeMapping TypeName="BancoProwayModel.Temporada">
+              <MappingFragment StoreEntitySet="Temporada">
+                <ScalarProperty Name="IdTemporada" ColumnName="IdTemporada" />
+                <ScalarProperty Name="SerieId" ColumnName="SerieId" />
+                <ScalarProperty Name="Sequencial" ColumnName="Sequencial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="BancoProwayModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="PerfilId" ColumnName="PerfilId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Logon" ColumnName="Logon" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

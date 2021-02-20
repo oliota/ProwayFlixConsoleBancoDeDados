@@ -16,7 +16,7 @@ namespace ConsoleApp1
         {
             switch (opcao)
             {
-                case Opcoes.Sair: 
+                case Opcoes.Sair:
                     break;
                 case Opcoes.Entrar:
                     FormularioEntrar();
@@ -24,11 +24,11 @@ namespace ConsoleApp1
                 case Opcoes.Cadastrar:
                     FormularioCadastrar();
                     break;
-                default:  
+                default:
                     Utils.Pausar("Opção inválida");
                     break;
             }
-        } 
+        }
         public void ExibirMenu()
         {
             string opcao;

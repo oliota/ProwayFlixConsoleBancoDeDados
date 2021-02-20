@@ -12,21 +12,23 @@ namespace ConsoleApp1
     using System;
     using System.Collections.Generic;
     
-    public partial class filmes
+    public partial class Usuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public filmes()
+        public Usuario()
         {
-            this.assistidos = new HashSet<assistidos>();
+            this.Assistido = new HashSet<Assistido>();
         }
     
-        public int id_filme { get; set; }
-        public string nome { get; set; }
-        public Nullable<int> ano { get; set; }
-        public string sinopse { get; set; }
+        public int IdUsuario { get; set; }
+        public Nullable<int> PerfilId { get; set; }
+        public string Nome { get; set; }
+        public string Email { get; set; }
+        public string Logon { get; set; }
+        public string Senha { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<assistidos> assistidos { get; set; }
-        public virtual categorias categorias { get; set; }
+        public virtual ICollection<Assistido> Assistido { get; set; }
+        public virtual Perfil Perfil { get; set; }
     }
 }

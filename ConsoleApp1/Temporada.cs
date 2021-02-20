@@ -12,22 +12,20 @@ namespace ConsoleApp1
     using System;
     using System.Collections.Generic;
     
-    public partial class usuarios
+    public partial class Temporada
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public usuarios()
+        public Temporada()
         {
-            this.assistidos = new HashSet<assistidos>();
+            this.Episodio = new HashSet<Episodio>();
         }
     
-        public int id_usuario { get; set; }
-        public string nome { get; set; }
-        public string email { get; set; }
-        public string login { get; set; }
-        public string senha { get; set; }
+        public int IdTemporada { get; set; }
+        public Nullable<int> SerieId { get; set; }
+        public Nullable<int> Sequencial { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<assistidos> assistidos { get; set; }
-        public virtual perfis perfis { get; set; }
+        public virtual ICollection<Episodio> Episodio { get; set; }
+        public virtual Serie Serie { get; set; }
     }
 }

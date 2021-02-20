@@ -13,10 +13,10 @@ namespace ConsoleApp1
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BancoProwayEntities : DbContext
+    public partial class ModelEntities : DbContext
     {
-        public BancoProwayEntities()
-            : base("name=BancoProwayEntities")
+        public ModelEntities()
+            : base("name=ModelEntities")
         {
         }
     
@@ -25,14 +25,14 @@ namespace ConsoleApp1
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<assistidos> assistidos { get; set; }
-        public virtual DbSet<categorias> categorias { get; set; }
-        public virtual DbSet<episodios> episodios { get; set; }
-        public virtual DbSet<filmes> filmes { get; set; }
-        public virtual DbSet<perfis> perfis { get; set; }
-        public virtual DbSet<series> series { get; set; }
+        public virtual DbSet<Assistido> Assistido { get; set; }
+        public virtual DbSet<Categoria> Categoria { get; set; }
+        public virtual DbSet<Episodio> Episodio { get; set; }
+        public virtual DbSet<Filme> Filme { get; set; }
+        public virtual DbSet<Perfil> Perfil { get; set; }
+        public virtual DbSet<Serie> Serie { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<temporadas> temporadas { get; set; }
-        public virtual DbSet<usuarios> usuarios { get; set; }
+        public virtual DbSet<Temporada> Temporada { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

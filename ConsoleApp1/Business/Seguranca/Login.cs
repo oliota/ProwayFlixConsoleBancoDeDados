@@ -1,5 +1,4 @@
 ﻿using ConsoleApp1.Business.Sistema;
-using ConsoleApp1.Model;
 using ConsoleApp1.Model.Repositorio;
 using System;
 using System.Linq;
@@ -15,28 +14,28 @@ namespace ConsoleApp1.Business
             Entrar = 1,
             Cadastrar = 2
         }
-        protected usuarios Usuario { get; set; } 
-         
+        protected Usuario Usuario { get; set; }
+
         public void FormularioEntrar()
         {
-            Usuario = new usuarios();
+            Usuario = new Usuario();
 
             Console.Clear();
             Console.WriteLine("Informe o Logon");
-            Usuario.login = Console.ReadLine();
+            Usuario.Logon = Console.ReadLine();
 
             Console.WriteLine("Informe a Senha");
-            Usuario.senha = Console.ReadLine(); 
+            Usuario.Senha = Console.ReadLine();
             if (ValidarEntrada())
                 Entrar();
         }
 
         public bool ValidarEntrada()
         {
-            var select = Repositorios.banco.usuarios
-                      .Where(s => s.login.Equals(Usuario.login))
-                      .Where(s => s.senha.Equals(Usuario.senha))
-                      .FirstOrDefault<usuarios>();
+            var select = Repositorios.banco.Usuario
+                      .Where(s => s.Logon.Equals(Usuario.Logon))
+                      .Where(s => s.Senha.Equals(Usuario.Senha))
+                      .FirstOrDefault<Usuario>();
 
 
             if (select != null)
@@ -61,22 +60,22 @@ namespace ConsoleApp1.Business
 
         public void FormularioCadastrar()
         {
-            Usuario = new usuarios();
+            Usuario = new Usuario();
 
             Console.Clear();
             Console.WriteLine("Informe o Nome");
-            Usuario.nome = Console.ReadLine();
+            Usuario.Nome = Console.ReadLine();
 
             Console.WriteLine("Informe o Email");
-            Usuario.email = Console.ReadLine();
+            Usuario.Email = Console.ReadLine();
 
             Console.WriteLine("Informe o Logon");
-            Usuario.login = Console.ReadLine();
+            Usuario.Logon = Console.ReadLine();
 
             Console.WriteLine("Informe a Senha");
-            Usuario.senha = Console.ReadLine();
+            Usuario.Senha = Console.ReadLine();
 
-            Usuario.perfis = Repositorios.banco.perfis.Where(x => x.nome.Equals("Usuário")).SingleOrDefault();
+            Usuario.Perfil = Repositorios.PerfilPadrao();
 
             if (ValidarCadastro())
                 Cadastrar();
@@ -86,20 +85,20 @@ namespace ConsoleApp1.Business
         public bool ValidarCadastro()
         {
             var MensagemErro = new StringBuilder();
-            if (string.IsNullOrWhiteSpace(Usuario.nome))
+            if (string.IsNullOrWhiteSpace(Usuario.Nome))
                 MensagemErro.AppendLine($"Nome não pode ficar em branco");
-            if (string.IsNullOrWhiteSpace(Usuario.email))
+            if (string.IsNullOrWhiteSpace(Usuario.Email))
                 MensagemErro.AppendLine($"Email não pode ficar em branco");
-            if (string.IsNullOrWhiteSpace(Usuario.login))
+            if (string.IsNullOrWhiteSpace(Usuario.Logon))
                 MensagemErro.AppendLine($"Logon não pode ficar em branco");
-            if (string.IsNullOrWhiteSpace(Usuario.senha))
+            if (string.IsNullOrWhiteSpace(Usuario.Senha))
                 MensagemErro.AppendLine($"Senha não pode ficar em branco");
             if (Repositorios.banco
-                .usuarios
-                .Where(x => x.email.Equals(Usuario.email))
+                .Usuario
+                .Where(x => x.Email.Equals(Usuario.Email))
                 .Any()
                 )
-                MensagemErro.AppendLine($"Já existe um usuario com o email {Usuario.email}");
+                MensagemErro.AppendLine($"Já existe um usuario com o email {Usuario.Email}");
 
             if (!string.IsNullOrWhiteSpace(MensagemErro.ToString()))
             {
@@ -113,9 +112,8 @@ namespace ConsoleApp1.Business
 
         public void Cadastrar()
         {
-            //new UsuarioREP().Adicionar(Usuario);
-            Repositorios.banco.usuarios.Add(Usuario);
-            Repositorios.banco.SaveChanges();
+            Repositorios.banco.Usuario.Add(Usuario);
+            Repositorios.Salvar();
         }
 
     }

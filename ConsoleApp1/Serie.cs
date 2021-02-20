@@ -12,19 +12,25 @@ namespace ConsoleApp1
     using System;
     using System.Collections.Generic;
     
-    public partial class temporadas
+    public partial class Serie
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public temporadas()
+        public Serie()
         {
-            this.episodios = new HashSet<episodios>();
+            this.Assistido = new HashSet<Assistido>();
+            this.Temporada = new HashSet<Temporada>();
         }
     
-        public int id_temporada { get; set; }
-        public Nullable<int> sequencial { get; set; }
+        public int IdSerie { get; set; }
+        public Nullable<int> CategoriaId { get; set; }
+        public string Nome { get; set; }
+        public string Sinopse { get; set; }
+        public Nullable<int> Ano { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<episodios> episodios { get; set; }
-        public virtual series series { get; set; }
+        public virtual ICollection<Assistido> Assistido { get; set; }
+        public virtual Categoria Categoria { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Temporada> Temporada { get; set; }
     }
 }
