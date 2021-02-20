@@ -57,7 +57,7 @@ CREATE TABLE Filme (
     CategoriaId int,
     Nome varchar(50),
     Ano int,
-    Sinopse varchar(50), 
+    Sinopse varchar(2000), 
     PRIMARY KEY (IdFilme),
     FOREIGN KEY (CategoriaId) REFERENCES Categoria(IdCategoria)
 );
@@ -68,7 +68,7 @@ CREATE TABLE Serie (
     IdSerie int IDENTITY(1,1) NOT NULL,
     CategoriaId int,
     Nome varchar(50),
-    Sinopse varchar(50), 
+    Sinopse varchar(2000), 
     Ano int,
     PRIMARY KEY (IdSerie),
     FOREIGN KEY (CategoriaId) REFERENCES Categoria(IdCategoria)
@@ -89,7 +89,7 @@ CREATE TABLE Episodio (
     TemporadaId int, 
     Sequencial int,  
 	Nome varchar(50),
-    Sinopse varchar(50),
+    Sinopse varchar(2000),
     PRIMARY KEY (IdEpisodio),
     FOREIGN KEY (TemporadaId) REFERENCES Temporada(IdTemporada)
 );
