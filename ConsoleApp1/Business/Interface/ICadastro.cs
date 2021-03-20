@@ -6,7 +6,7 @@
         object FormularioSimples();
         bool ValidarCompleto();
         bool ValidarSimples();
-        void Listar();
+        void Listar(object item);
         bool Adicionar();
         bool Editar();
         bool Deletar();

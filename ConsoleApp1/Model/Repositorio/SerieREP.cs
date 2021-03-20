@@ -50,6 +50,8 @@ namespace ConsoleApp1.Model.Repositorio
             Utils.Pausar($"Serie atualizada com sucesso!!!");
             return true; 
         }
+
+    
         public void Listar()
         {
             if (!Repositorios.banco.Serie.Any())
@@ -64,6 +66,11 @@ namespace ConsoleApp1.Model.Repositorio
                 Console.WriteLine($"{item.IdSerie,-10}{item.Nome,-30}{item.Ano,-5}{item.Categoria.Nome,-30}");
             }
             Utils.Pausar();
+        }
+
+        public void Listar(object item)
+        {
+
         }
 
         public void ListarCategorias()
