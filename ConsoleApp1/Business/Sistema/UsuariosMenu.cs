@@ -85,7 +85,7 @@ namespace ConsoleApp1.Business.Sistema
                     Escolha = "0";
                     return;
                 case Opcoes.Listar:
-                    Listar();
+                    Listar(null);
                     break;
                 case Opcoes.Adicionar:
                     Adicionar();
@@ -189,9 +189,12 @@ namespace ConsoleApp1.Business.Sistema
             Usuario.Email = Console.ReadLine();
             return Usuario;
         }
-        public void Listar()
+        public void Listar(object item)
         {
-            Rep.Listar();
+            if (item == null)
+                Rep.Listar();
+            else
+                Rep.Listar(item);
         }
         public bool ValidarCompleto()
         {

@@ -80,7 +80,10 @@ namespace ConsoleApp1.Model.Repositorio
             }
             Utils.Pausar();
         }
+        public void Listar(object item)
+        {
 
+        }
 
         public void ListarPerfis()
         {

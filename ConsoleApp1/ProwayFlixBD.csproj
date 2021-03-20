@@ -109,6 +109,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\Consumo.cs" />
     <Compile Include="Model\Interface\IRepositorioItem.cs" />
     <Compile Include="Model\Repositorio\AssistidoREP.cs" />
     <Compile Include="Model\Repositorio\CategoriaREP.cs" />

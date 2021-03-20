@@ -13,8 +13,7 @@ namespace ConsoleApp1.Business.Sistema
             Categorias = 2,
             Filmes = 3,
             Series = 4,
-            Relatorios = 5,
-            Assistidos = 6
+            Top5 = 5
         }
 
 
@@ -38,14 +37,13 @@ namespace ConsoleApp1.Business.Sistema
                     new CategoriasMenu().ExibirMenu();
                     break;
                 case Opcoes.Filmes:
+                    new FilmesMenu().ExibirMenu();
                     break;
                 case Opcoes.Series:
                     new SeriesMenu().ExibirMenu(); 
                     break;
-                case Opcoes.Assistidos:
-                    break;
-                case Opcoes.Relatorios:
-                    Console.WriteLine("Menu de relatorios");
+                case Opcoes.Top5:
+                    AssistidoREP.ListarTop5();
                     break;
                 default:
                     Utils.Pausar("Opção inválida");

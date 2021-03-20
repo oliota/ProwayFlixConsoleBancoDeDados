@@ -49,6 +49,10 @@ namespace ConsoleApp1.Model.Repositorio
             return true;
 
         }
+        public void Listar(object item)
+        {
+        }
+
         public void Listar()
         {
             if (!Repositorios.banco.Categoria.Any())
@@ -59,9 +63,9 @@ namespace ConsoleApp1.Model.Repositorio
             }
             Console.WriteLine($"{"Nome",-30}");
 
-            foreach (var item in Repositorios.banco.Categoria)
+            foreach (var cat in Repositorios.banco.Categoria)
             {
-                Console.WriteLine($"{item.Nome,-30}");
+                Console.WriteLine($"{cat.Nome,-30}");
             }
             Utils.Pausar();
         }
